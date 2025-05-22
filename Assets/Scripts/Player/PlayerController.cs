@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
-    public float jumpPower;
+    public const float startJumpPower = 80f; 
+    public float nowJumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
 
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        nowJumpPower = startJumpPower;
     }
 
     
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGround())
         {
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            rigid.AddForce(Vector2.up * nowJumpPower, ForceMode.Impulse);
         }
     }
 
@@ -95,12 +97,16 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
+                nowJumpPower = startJumpPower;
                 Debug.Log("∂•¿‘¥œ¥Ÿ");
                 return true;
             }
         }
         Debug.Log("∂•æ∆¥’¥œ¥Ÿ");
         return false;
+    }
+    public void ApplyJumpForce(float force) {
+        nowJumpPower += force;
     }
 
 }
