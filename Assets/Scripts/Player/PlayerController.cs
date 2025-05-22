@@ -98,11 +98,9 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
                 nowJumpPower = startJumpPower;
-                Debug.Log("∂•¿‘¥œ¥Ÿ");
                 return true;
             }
         }
-        Debug.Log("∂•æ∆¥’¥œ¥Ÿ");
         return false;
     }
     public void ApplyJumpForce(float force) {
