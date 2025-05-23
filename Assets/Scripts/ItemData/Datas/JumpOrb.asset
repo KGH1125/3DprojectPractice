@@ -21,6 +21,6 @@ MonoBehaviour:
   maxStackAmount: 0
   itemEffects:
   - statType: 3
-    value: 10
+    value: 80
     applicationType: 1
-    duration: 5
+    duration: 10

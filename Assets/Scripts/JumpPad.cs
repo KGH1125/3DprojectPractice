@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-    public float jumpForce = 10f; // 추가 점프력
+    public float addJumpForce = 10f; // 추가 점프력
     public LayerMask targetLayers; // 대상 레이어
     [SerializeField] private Animator animator;
 
@@ -17,12 +17,12 @@ public class JumpPad : MonoBehaviour
                 velocity.y = 0;
                 rb.velocity = velocity;
 
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
+                rb.AddForce(Vector3.up * addJumpForce, ForceMode.VelocityChange);
 
                 if (animator != null)
                 {
                     animator.SetTrigger("Press");
-                    Debug.Log("실행");
+                    Debug.Log("점프대 작동");
                 }
             }
         }

@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
-    public const float startJumpPower = 80f;
-    public float nowJumpPower;
+    public float JumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
     private bool isJumpPressed = false;
@@ -32,7 +30,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        nowJumpPower = startJumpPower;
     }
 
     void FixedUpdate()
@@ -86,12 +83,12 @@ public class PlayerController : MonoBehaviour
 
     void UpdateJump()
     {
-        Debug.Log(rigid.velocity);
         if (isJumpPressed && IsGround() && rigid.velocity.y == 0)
         {
-            Debug.Log("มกวม");
             rigid.velocity = new Vector3(rigid.velocity.x, 0.1f, rigid.velocity.z);
-            rigid.AddForce(Vector2.up * nowJumpPower, ForceMode.Impulse);
+            rigid.AddForce(Vector2.up * JumpPower, ForceMode.Impulse);
+
+            CharacterManager.Instance.player.condition.AddStamina(-30f);
         }
     }
 
@@ -109,16 +106,10 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
-                nowJumpPower = startJumpPower;
-
                 return true;
             }
         }
         return false;
-    }
-    public void ApplyJumpForce(float force)
-    {
-        nowJumpPower += force;
     }
 
     public void AddMoveSpeed(float value)
@@ -128,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
     public void AddJumpPower(float value)
     {
-        nowJumpPower += value;
+        JumpPower += value;
     }
     public IEnumerator AddMoveSpeedForDuration(float value, float duration)
     {
@@ -138,8 +129,9 @@ public class PlayerController : MonoBehaviour
     }
     public IEnumerator AddJumpPowerForDuration(float value, float duration)
     {
-        nowJumpPower += value;
+        JumpPower += value;
         yield return new WaitForSeconds(duration);
-        nowJumpPower -= value;
+        JumpPower -= value;
     }
+
 }
