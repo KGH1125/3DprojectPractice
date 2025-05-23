@@ -26,14 +26,32 @@ public class PlayerCondition : MonoBehaviour, IDamageable
         }
     }
 
-    public void Heal(float amount)
+    public void AddHealth(float amount)
     {
         health.Add(amount);
     }
 
+    public void AddStamina(float amount)
+    {
+        stamina.Add(amount);
+    }
+    public IEnumerator AddHealthForDuration(float amount, float duration)
+    {
+        health.Add(amount);
+        yield return new WaitForSeconds(duration);
+        health.Subtract(amount);
+    }
+
+    public IEnumerator AddStaminaForDuration(float amount, float duration)
+    {
+        stamina.Add(amount);
+        yield return new WaitForSeconds(duration);
+        stamina.Subtract(amount);
+    }
+
     public void Die()
     {
-        Debug.Log("death");
+        Debug.Log("Die");
     }
 
     public void TakePhysicalDamage(int damage)

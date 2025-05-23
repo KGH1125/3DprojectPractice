@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
-    public const float startJumpPower = 80f; 
+    public const float startJumpPower = 80f;
     public float nowJumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
+    private bool isJumpPressed = false;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -33,11 +35,12 @@ public class PlayerController : MonoBehaviour
         nowJumpPower = startJumpPower;
     }
 
-    
     void FixedUpdate()
     {
         Move();
+        UpdateJump();
     }
+
     private void LateUpdate()
     {
         if (canLook) { CameraLook(); }
@@ -77,8 +80,17 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && IsGround())
+        if (context.started) { isJumpPressed = true; }
+        else if (context.canceled) { isJumpPressed = false; }
+    }
+
+    void UpdateJump()
+    {
+        Debug.Log(rigid.velocity);
+        if (isJumpPressed && IsGround() && rigid.velocity.y == 0)
         {
+            Debug.Log("มกวม");
+            rigid.velocity = new Vector3(rigid.velocity.x, 0.1f, rigid.velocity.z);
             rigid.AddForce(Vector2.up * nowJumpPower, ForceMode.Impulse);
         }
     }
@@ -98,13 +110,36 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
             {
                 nowJumpPower = startJumpPower;
+
                 return true;
             }
         }
         return false;
     }
-    public void ApplyJumpForce(float force) {
+    public void ApplyJumpForce(float force)
+    {
         nowJumpPower += force;
     }
 
+    public void AddMoveSpeed(float value)
+    {
+        moveSpeed += value;
+    }
+
+    public void AddJumpPower(float value)
+    {
+        nowJumpPower += value;
+    }
+    public IEnumerator AddMoveSpeedForDuration(float value, float duration)
+    {
+        moveSpeed += value;
+        yield return new WaitForSeconds(duration);
+        moveSpeed -= value;
+    }
+    public IEnumerator AddJumpPowerForDuration(float value, float duration)
+    {
+        nowJumpPower += value;
+        yield return new WaitForSeconds(duration);
+        nowJumpPower -= value;
+    }
 }

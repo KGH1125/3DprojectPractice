@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 686279732177654584}
   - component: {fileID: 2696308126945340232}
   m_Layer: 0
-  m_Name: SpeedOrbMaterial
+  m_Name: JumpOrbMaterial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d40214e6ad096844bbc8e2832e46039b, type: 2}
+  - {fileID: 2100000, guid: e0ed342e2f55806469e9324a1d6e09ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

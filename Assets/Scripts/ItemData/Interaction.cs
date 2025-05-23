@@ -16,9 +16,11 @@ public class Interaction : MonoBehaviour
 
     public TextMeshProUGUI ItemTooltipText;
     private Camera _camera;
+    private PlayerCondition condition;
 
     void Start()
     {
+        condition = CharacterManager.Instance.Player.condition;
         _camera = Camera.main;
     }
 
@@ -62,6 +64,8 @@ public class Interaction : MonoBehaviour
             curInteractGameObject = null;
             curInteractable = null;
             ItemTooltipText.gameObject.SetActive(false);
+
+
         }
     }
 }

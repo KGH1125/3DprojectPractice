@@ -30,12 +30,21 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "UseItem",
+                    "name": "Crouch",
                     "type": "Button",
                     "id": "4138d4f9-4523-4417-a95e-372b7d806848",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "2b4f2236-5117-4100-98ad-568de303c2fb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -123,11 +132,22 @@
                 {
                     "name": "",
                     "id": "4c1c48f6-d5f0-4ebf-a747-08c2a2d8ea8f",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55154bf5-4aaf-42f9-aa3c-178b75d6b0ee",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItem",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
